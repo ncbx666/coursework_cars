@@ -50,5 +50,13 @@ SELECT brand_name
 FROM brands
 WHERE country_of_foundation=’Германия’
 ```
+**2. Самое старое авто**
+```sql
+SELECT model_name
+FROM models
+WHERE release_date =
+(SELECT MIN(release_date)
+FROM models);
+```
 
 
