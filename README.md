@@ -43,7 +43,7 @@
 - Цена и название авто с мощностью двигателя выше средней  
 
 
-
+### Легкие запросы
 **1. Немецкие марки авто**:
 ```sql
 SELECT brand_name
@@ -55,8 +55,33 @@ WHERE country_of_foundation=’Германия’
 SELECT model_name
 FROM models
 WHERE release_date =
-(SELECT MIN(release_date)
-FROM models);
+  (SELECT MIN(release_date)
+  FROM models);
 ```
+**3. Средняя цена авто**
+```sql
+SELECT round(AVG(price),1)
+FROM model_engine;
+```
+**4. Количество авто каждого типа**
+```sql
+SELECT type_of_car, COUNT(*) AS model_count
+FROM models
+GROUP BY type_of_car;
+```
+
+### Средние запросы
+**1. Авто, которое купили больше всех в один день**
+```sql
+SELECT brand_name, model_name, amount
+FROM
+models
+  INNER JOIN brands ON brands.id_brand=models.id_brand
+  INNER JOIN purchases ON models.id_model=purchases.id_model
+WHERE amount = (SELECT MAX(amount) from purchases);
+```
+
+
+
 
 
